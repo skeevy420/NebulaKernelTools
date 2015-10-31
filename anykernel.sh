@@ -99,7 +99,7 @@ replace_string() {
 insert_line() {
   if [ -z "$(grep "$2" $1)" ]; then
     case $3 in
-      before) offset=0;;
+      before) offset0;;
       after) offset=1;;
     esac;
     line=$((`grep -n "$4" $1 | cut -d: -f1` + offset));
@@ -150,7 +150,7 @@ replace_file() {
 
 ## AnyKernel permissions
 # set permissions for included files
-chmod -R 755 $ramdisk
+chmod -R 755 $ramdisk;
 
 
 ## AnyKernel install
@@ -160,7 +160,7 @@ dump_boot;
 
 # init.g3.rc
 backup_file init.g3.rc;
-append_file init.g3.rc "nebulakernel-post_boot" init.g3.patch;
+append_file init.g3.rc "onrestart restart netd" init.g3.patch;
 
 # end ramdisk changes
 
